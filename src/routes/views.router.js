@@ -27,9 +27,8 @@ viewsRouter.get('/carts/:cid',async (req,res)=>{
   try {
     const cartManager = new CartManagerDB();
     const resp = await cartManager.loadCart(req.params.cid);
-    const products = resp.payload[0].products;
-    console.log(products);
-    res.render("cartList", products)
+    console.log(resp.payload[0]);
+    res.render("cartList", resp.payload[0]);
   } catch (error) {
     res.send({status: "error", message: "Error en ejecución, " + error});
   }
