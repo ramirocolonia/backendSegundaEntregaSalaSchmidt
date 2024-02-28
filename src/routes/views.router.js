@@ -16,7 +16,6 @@ viewsRouter.get('/products',async (req,res)=>{
     resp.payload.prevLink = resp.payload.hasPrevPage?`http://localhost:8080/products?page=${resp.payload.prevPage}&limit=${resp.payload.limit}`:"";
     resp.payload.nextLink = resp.payload.hasNextPage?`http://localhost:8080/products?page=${resp.payload.nextPage}&limit=${resp.payload.limit}`:"";
     resp.payload.isValid = (resp.payload.docs.length > 0);
-    console.log(resp.payload);
     res.render("products",resp.payload)
   } catch (error) {
     res.send({status: "error", message: "Error en ejecución, " + error});
@@ -27,8 +26,11 @@ viewsRouter.get('/carts/:cid',async (req,res)=>{
   try {
     const cartManager = new CartManagerDB();
     const resp = await cartManager.loadCart(req.params.cid);
-    console.log(resp.payload[0]);
-    res.render("cartList", resp.payload[0]);
+    if(resp.status === "success"){
+      res.render("cartList", { products: resp.payload.products.map(prod => prod.toObject()) });
+    }else{
+      res.render("cartList", { products: [] })
+    }
   } catch (error) {
     res.send({status: "error", message: "Error en ejecución, " + error});
   }

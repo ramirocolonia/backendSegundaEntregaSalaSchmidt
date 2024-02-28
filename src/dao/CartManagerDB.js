@@ -12,10 +12,9 @@ class CartManagerDB {
   }
 
   async loadCart(cId) {
-    let cart = await cartModel.find({ _id: cId });
-    cart.lean = true;
+    let cart = await cartModel.findOne({ _id: cId });
     if (cart) {
-      return { result: "success", payload: cart };
+      return { status: "success", payload: cart };
     }
     return { status: "error", message: "Carrito no encontrado" };
   }
