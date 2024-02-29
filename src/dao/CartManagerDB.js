@@ -4,8 +4,9 @@ import { productModel } from "./models/product.model.js";
 class CartManagerDB {
 
   async newCart() {
-    if (await cartModel.create({})) {
-      return { status: "success", message: "Carrito creado correctamente" };
+    const resp = await cartModel.create({})
+    if (resp) {
+      return { status: "success", payload: resp };
     } else {
       return {status: "error", message: "Error al crear el carrito, " + error};
     }
