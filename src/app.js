@@ -15,7 +15,7 @@ app.listen(PORT, () => {
 });
 
 mongoose.connect(
-  "mongodb+srv://ramiro:ramiro77@codercluster.smyhhqs.mongodb.net/ecommerce?retryWrites=true&w=majority"
+  "mongodb+srv://ramiro:######@######.smyhhqs.mongodb.net/ecommerce?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Conectado a la base de datos!");
